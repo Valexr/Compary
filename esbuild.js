@@ -10,7 +10,7 @@ const DEV = process.argv.includes('--dev');
 // see `start` script in `package.json` file.
 
 const HOST = '0.0.0.0';
-const PORT = 5000;
+const PORT = 5050;
 
 async function build_client() {
     return await build({
