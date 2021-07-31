@@ -21,6 +21,7 @@ async function build_client() {
         minify: !DEV,
         incremental: DEV,
         sourcemap: DEV && 'inline',
+        // external: ['../img/*'],
         plugins: [
             sveltePlugin({
 

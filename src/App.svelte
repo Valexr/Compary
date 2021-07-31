@@ -18,6 +18,6 @@
 		max-width: 1000px;
 	}
 	b {
-		color: #28ae60;
+		color: hsl(339.1, 80.9%, 61%);
 	}
 </style>

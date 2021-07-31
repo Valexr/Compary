@@ -4,10 +4,10 @@
 	const dispatch = createEventDispatcher();
 
 	export let value = 50,
-		thumbcolor = '#28ae60',
+		thumbcolor = 'hsl(339.1, 80.9%, 61%)',
 		img = {
-			left: 'https://assets.stoumann.dk/img/color.jpg',
-			right: 'https://assets.stoumann.dk/img/bw.jpg',
+			left: '../img/color.jpg',
+			right: '../img/bw.jpg',
 		};
 </script>
 
@@ -30,8 +30,8 @@
 		--h: 9;
 		--m: 1rem 0;
 		--w: 16;
-		--thumb-bgc: #28ae60;
-		--thumb-bgc-focus: hsla(0, 70%, 70%, 0.7);
+		--thumb-bgc: hsl(339.1, 80.9%, 61%);
+		--thumb-bgc-focus: hsl(339.1, 80.9%, 61%, 0.7);
 		--thumb-w: 2rem;
 		margin: var(--m);
 		position: relative;
