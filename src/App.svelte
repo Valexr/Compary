@@ -1,12 +1,16 @@
 <script>
 	import { Compary } from 'svelte-compary';
-	let name = 'Compary';
-	let value = 50;
+	let name = 'Compary',
+		value = 50,
+		img = {
+			left: 'img/color.jpg',
+			right: 'img/bw.jpg',
+		};
 </script>
 
 <h1>Hello <b>{name}</b>!</h1>
 
-<Compary />
+<Compary {img} />
 
 <style>
 	/* For demo */

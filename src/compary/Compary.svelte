@@ -6,14 +6,14 @@
 	export let value = 50,
 		thumbcolor = 'hsl(339.1, 80.9%, 61%)',
 		img = {
-			left: '../img/color.jpg',
-			right: '../img/bw.jpg',
+			left: '',
+			right: '',
 		};
 </script>
 
 <section class="c-compare" style="--value: {value}%; --thumb-bgc: {thumbcolor}">
-	<img class="c-compare__left" src={img.left} alt="Color" />
-	<img class="c-compare__right" src={img.right} alt="B/W" />
+	<img class="c-compare__left" src={img.left} alt="after" />
+	<img class="c-compare__right" src={img.right} alt="before" />
 	<input
 		type="range"
 		class="c-compare__range"
@@ -43,14 +43,29 @@
 	}
 	img {
 		max-width: 100%;
+		width: 100%;
 		height: 100%;
 		position: absolute;
 		object-fit: cover;
+		color: transparent;
+	}
+	img::before,
+	img::after {
+		content: url('img/color.jpg');
+		color: white;
+		position: absolute;
+		padding: 1em;
+		z-index: 1;
+	}
+	img::after {
+		right: 0;
 	}
 	.c-compare__left {
+		background-color: var(--thumb-bgc-focus);
 		clip-path: polygon(0% 0%, var(--value) 0%, var(--value) 100%, 0% 100%);
 	}
 	.c-compare__right {
+		background-color: silver;
 		clip-path: polygon(100% 0%, var(--value) 0%, var(--value) 100%, 100% 100%);
 	}
 	.c-compare__range {

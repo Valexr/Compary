@@ -9,7 +9,7 @@ const DEV = process.argv.includes('--dev');
 // Development server configuration. To configure production server
 // see `start` script in `package.json` file.
 
-const HOST = '0.0.0.0';
+const HOST = 'localhost';
 const PORT = 5050;
 
 async function build_client() {
@@ -21,7 +21,10 @@ async function build_client() {
         minify: !DEV,
         incremental: DEV,
         sourcemap: DEV && 'inline',
-        // external: ['../img/*'],
+        external: ['../img/*'],
+        // loader: {
+        //     '.jpg': 'file'
+        // },
         plugins: [
             sveltePlugin({
 
