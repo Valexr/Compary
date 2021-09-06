@@ -51,7 +51,8 @@
 	}
 	img::before,
 	img::after {
-		content: url('img/color.jpg');
+		content: attr(alt);
+		/* content: url('img/color.jpg'); */
 		color: white;
 		position: absolute;
 		padding: 1em;
