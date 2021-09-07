@@ -12,7 +12,8 @@
         "start": "npx derver --production --port=5000 public",
         "predeploy": "node esbuild",
         "deploy": "gh-pages -d public",
-        "prepublishOnly": "node esbuild"
+        "prepublishOnly": "node esbuild",
+        "prod": "node esbuild"
     },
     "keywords": [
         "svelte",
