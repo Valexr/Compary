@@ -23,5 +23,6 @@
 	}
 	b {
 		color: hsl(339.1, 80.9%, 61%);
+		color: red;
 	}
 </style>
