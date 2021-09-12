@@ -35,19 +35,18 @@
 		--thumb-w: 2rem;
 		margin: var(--m);
 		position: relative;
+		display: grid;
 	}
-	.c-compare::after {
-		content: '';
-		display: block;
-		padding-bottom: calc((var(--h) / var(--w)) * 100%);
+	.c-compare > * {
+		grid-area: 1/-1;
 	}
 	img {
-		max-width: 100%;
 		width: 100%;
 		height: 100%;
-		position: absolute;
+		min-height: 0;
 		object-fit: cover;
 		color: transparent;
+		aspect-ratio: var(--w) / var(--h);
 	}
 	img::before,
 	img::after {
@@ -73,12 +72,12 @@
 		background-color: transparent;
 		box-sizing: border-box;
 		font-family: inherit;
-		height: 100%;
 		margin: 0;
 		outline: none;
-		position: absolute;
-		top: 0;
-		width: 100%;
+		/* position: absolute; */
+		/* top: 0; */
+		/* width: 100%; */
+		/* height: 100%; */
 		font-size: 0;
 		border: 0;
 	}
