@@ -80,7 +80,7 @@ build_client().then(bundle => {
         minify: true,
         sourcemap: false,
         external: ['svelte', 'svelte/*'],
-        plugins: [sveltePlugin({ compileOptions: { css: true } })],
+        plugins: [sveltePlugin({ compileOptions: { css: true, accessors: true } })],
     });
 
     await build({
@@ -89,7 +89,7 @@ build_client().then(bundle => {
         platform: 'browser',
         format: "iife",
         bundle: true,
-        minify: false,
+        minify: true,
         sourcemap: false,
         globalName: "Compary",
         plugins: [sveltePlugin({ compileOptions: { css: true } })],

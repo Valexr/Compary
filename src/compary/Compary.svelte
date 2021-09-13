@@ -4,19 +4,16 @@
 	const dispatch = createEventDispatcher();
 
 	export let value = 50,
-		thumbcolor = 'hsl(339.1, 80.9%, 61%)',
-		img = {
-			left: '',
-			right: '',
-		};
+		thumbcolor = '',
+		img = { after: '', before: '' };
 </script>
 
-<section class="c-compare" style="--value: {value}%; --thumb-bgc: {thumbcolor}">
-	<img class="c-compare__left" src={img.left} alt="after" />
-	<img class="c-compare__right" src={img.right} alt="before" />
+<section class="compary" style="--compary-value: {value}%; --compary-thumb: {thumbcolor || ''}">
+	<img class="compary__left" src={img.after} alt="after" />
+	<img class="compary__right" src={img.before} alt="before" />
 	<input
 		type="range"
-		class="c-compare__range"
+		class="compary__range"
 		min="0"
 		max="100"
 		{value}
@@ -26,18 +23,17 @@
 </section>
 
 <style>
-	.c-compare {
-		--h: 9;
-		--m: 1rem 0;
-		--w: 16;
-		--thumb-bgc: hsl(339.1, 80.9%, 61%);
-		--thumb-bgc-focus: hsl(339.1, 80.9%, 61%, 0.7);
-		--thumb-w: 2rem;
-		margin: var(--m);
+	.compary {
+		--compary-w: 16;
+		--compary-h: 9;
+		--compary-m: 1rem 0;
+		--compary-thumb: #ec4b83;
+		--compary-thumb-w: 2rem;
+		margin: var(--compary-m);
 		position: relative;
 		display: grid;
 	}
-	.c-compare > * {
+	.compary > * {
 		grid-area: 1/-1;
 	}
 	img {
@@ -46,7 +42,7 @@
 		min-height: 0;
 		object-fit: cover;
 		color: transparent;
-		aspect-ratio: var(--w) / var(--h);
+		aspect-ratio: var(--compary-w) / var(--compary-h);
 	}
 	img::before,
 	img::after {
@@ -60,71 +56,69 @@
 	img::after {
 		right: 0;
 	}
-	.c-compare__left {
-		background-color: var(--thumb-bgc-focus);
-		clip-path: polygon(0% 0%, var(--value) 0%, var(--value) 100%, 0% 100%);
+	.compary__left {
+		clip-path: polygon(0% 0%, var(--compary-value) 0%, var(--compary-value) 100%, 0% 100%);
 	}
-	.c-compare__right {
+	.compary__right {
 		background-color: silver;
-		clip-path: polygon(100% 0%, var(--value) 0%, var(--value) 100%, 100% 100%);
+		clip-path: polygon(100% 0%, var(--compary-value) 0%, var(--compary-value) 100%, 100% 100%);
 	}
-	.c-compare__range {
+	.compary__range {
 		background-color: transparent;
 		box-sizing: border-box;
 		font-family: inherit;
 		margin: 0;
 		outline: none;
-		/* position: absolute; */
-		/* top: 0; */
-		/* width: 100%; */
-		/* height: 100%; */
+		position: relative;
 		font-size: 0;
 		border: 0;
 	}
 
-	.c-compare__range::-webkit-slider-thumb {
-		background-color: var(--thumb-bgc);
+	.compary__range::-webkit-slider-thumb {
+		background-color: var(--compary-thumb);
 		box-sizing: border-box;
-		width: var(--thumb-w);
+		width: var(--compary-thumb-w);
 		height: 2rem;
 		border-radius: 100%;
 		position: relative;
 		top: 50%;
 		margin-top: -1rem;
-		transform: translateX(calc(var(--value) - 50%));
+		transform: translateX(calc(var(--compary-value) - 50%));
 		border: 0;
 	}
-	.c-compare__range:focus::-webkit-slider-thumb {
-		background-color: var(--thumb-bgc-focus);
+	.compary__range:focus::-webkit-slider-thumb {
+		/* background-color: var(--thumb-bgc-focus); */
+		opacity: 0.7;
 	}
-	.c-compare__range::-webkit-slider-runnable-track {
+	.compary__range::-webkit-slider-runnable-track {
 		background: transparent;
 		background-size: 100%;
 		box-sizing: border-box;
 		height: 100%;
 	}
 
-	.c-compare__range::-moz-range-thumb {
-		background-color: var(--thumb-bgc);
+	.compary__range::-moz-range-thumb {
+		background-color: var(--compary-thumb);
 		box-sizing: border-box;
-		width: var(--thumb-w);
+		width: var(--compary-thumb-w);
 		height: 2rem;
 		border-radius: 100%;
-		transform: translateX(calc(var(--value) - 50%));
+		transform: translateX(calc(var(--compary-value) - 50%));
 	}
-	.c-compare__range:focus::-moz-range-thumb {
-		background-color: var(--thumb-bgc-focus);
+	.compary__range:focus::-moz-range-thumb {
+		/* background-color: var(--thumb-bgc-focus); */
+		opacity: 0.7;
 	}
-	.c-compare__range::-moz-range-track {
+	.compary__range::-moz-range-track {
 		background: transparent;
 		background-size: 100%;
 		box-sizing: border-box;
 		height: 100%;
 	}
 
-	.c-compare__range,
-	.c-compare__range::-webkit-slider-runnable-track,
-	.c-compare__range::-webkit-slider-thumb {
+	.compary__range,
+	.compary__range::-webkit-slider-runnable-track,
+	.compary__range::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
 	}

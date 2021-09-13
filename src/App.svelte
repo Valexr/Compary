@@ -3,14 +3,14 @@
 	let name = 'Compary',
 		value = 50,
 		img = {
-			left: 'img/color.jpg',
-			right: 'img/bw.jpg',
+			after: 'img/color.jpg',
+			before: 'img/bw.jpg',
 		};
 </script>
 
 <h1>Hello <b>{name}</b>!</h1>
 
-<Compary {img} />
+<Compary {value} {img} />
 
 <style>
 	/* For demo */
