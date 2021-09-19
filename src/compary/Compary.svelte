@@ -1,13 +1,3 @@
-<script>
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();
-
-	export let value = 50,
-		thumbcolor = '',
-		img = { after: '', before: '' };
-</script>
-
 <section class="compary" style="--compary-value: {value}%; --compary-thumb: {thumbcolor || ''}">
 	<img class="compary__left" src={img.after} alt="after" />
 	<img class="compary__right" src={img.before} alt="before" />
@@ -21,6 +11,16 @@
 		on:change={(e) => dispatch('change', e.target.value)}
 	/>
 </section>
+
+<script>
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	export let value = 50,
+		thumbcolor = '',
+		img = { after: '', before: '' };
+</script>
 
 <style>
 	.compary {
@@ -47,7 +47,7 @@
 	img::before,
 	img::after {
 		content: attr(alt);
-		/* content: url('img/color.jpg'); */
+		content: url('../img/color.jpg');
 		color: white;
 		position: absolute;
 		padding: 1em;

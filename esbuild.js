@@ -1,8 +1,9 @@
-const { build } = require("esbuild");
-const { derver } = require("derver");
-const sveltePlugin = require("esbuild-svelte");
-const sveltePreprocess = require("svelte-preprocess");
-const pkg = require('./package.json');
+import { build } from "esbuild";
+import { derver } from "derver";
+import sveltePlugin from "esbuild-svelte";
+import sveltePreprocess from "svelte-preprocess";
+import pkg from './package.json';
+const { main, module, browser } = pkg
 
 const DEV = process.argv.includes('--dev');
 
@@ -22,9 +23,9 @@ async function build_client() {
         incremental: DEV,
         sourcemap: DEV && 'inline',
         external: ['../img/*'],
-        // loader: {
-        //     '.jpg': 'file'
-        // },
+        loader: {
+            '.jpg': 'file'
+        },
         plugins: [
             sveltePlugin({
 
@@ -63,7 +64,7 @@ build_client().then(bundle => {
 
     await build({
         entryPoints: ['src/compary/index.js'],
-        outfile: pkg.main,
+        outfile: main,
         format: 'cjs',
         bundle: true,
         minify: true,
@@ -74,7 +75,7 @@ build_client().then(bundle => {
 
     await build({
         entryPoints: ['src/compary/index.js'],
-        outfile: pkg.module,
+        outfile: module,
         format: "esm",
         bundle: true,
         minify: true,
@@ -85,7 +86,7 @@ build_client().then(bundle => {
 
     await build({
         entryPoints: ['src/compary/index.js'],
-        outfile: pkg.browser,
+        outfile: browser,
         platform: 'browser',
         format: "iife",
         bundle: true,
