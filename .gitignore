@@ -4,3 +4,6 @@
 
 .DS_Store
 *-lock*
+inventory
+.gitignore.production
+simple-deploy.yaml
