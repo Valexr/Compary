@@ -2,9 +2,9 @@
     "name": "svelte-compary",
     "version": "1.0.0",
     "description": "Compary",
-    "main": "dist/compary.js",
-    "module": "dist/compary.esm.js",
-    "browser": "dist/compary.iife.js",
+    "main": "dist/compary.cjs",
+    "module": "dist/compary.mjs",
+    "browser": "dist/compary.js",
     "svelte": "src/compary/index.js",
     "type": "module",
     "scripts": {
