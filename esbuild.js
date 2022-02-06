@@ -2,8 +2,6 @@ import { build } from "esbuild";
 import { derver } from "derver";
 import sveltePlugin from "esbuild-svelte";
 import sveltePreprocess from "svelte-preprocess";
-import pkg from './package.json';
-const { main, module, browser } = pkg
 
 const DEV = process.argv.includes('--dev');
 
@@ -29,7 +27,7 @@ async function build_client() {
         plugins: [
             sveltePlugin({
 
-                compileOptions: {
+                compilerOptions: {
                     // Svelte compile options
                     dev: DEV,
                     css: false  //use `css:true` to inline CSS in `bundle.js`
@@ -64,36 +62,36 @@ build_client().then(bundle => {
 
     await build({
         entryPoints: ['src/compary/index.js'],
-        outfile: main,
+        outfile: 'dist/compary.cjs',
         format: 'cjs',
         bundle: true,
         minify: true,
         sourcemap: false,
         external: ['svelte', 'svelte/*'],
-        plugins: [sveltePlugin({ compileOptions: { css: true } })]
+        plugins: [sveltePlugin({ compilerOptions: { css: true } })]
     });
 
     await build({
         entryPoints: ['src/compary/index.js'],
-        outfile: module,
+        outfile: 'dist/compary.mjs',
         format: "esm",
         bundle: true,
         minify: true,
         sourcemap: false,
         external: ['svelte', 'svelte/*'],
-        plugins: [sveltePlugin({ compileOptions: { css: true, accessors: true } })],
+        plugins: [sveltePlugin({ compilerOptions: { css: true, accessors: true } })],
     });
 
     await build({
         entryPoints: ['src/compary/index.js'],
-        outfile: browser,
+        outfile: 'dist/compary.js',
         platform: 'browser',
         format: "iife",
         bundle: true,
         minify: true,
         sourcemap: false,
         globalName: "Compary",
-        plugins: [sveltePlugin({ compileOptions: { css: true } })],
+        plugins: [sveltePlugin({ compilerOptions: { css: true } })],
     });
 
 })()

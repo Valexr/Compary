@@ -1,3 +1,7 @@
+<h1>Hello <b>{name}</b>!</h1>
+
+<Compary {value} {img} />
+
 <script>
 	import { Compary } from 'svelte-compary';
 	let name = 'Compary',
@@ -7,10 +11,6 @@
 			before: 'img/bw.jpg',
 		};
 </script>
-
-<h1>Hello <b>{name}</b>!</h1>
-
-<Compary {value} {img} />
 
 <style>
 	/* For demo */
