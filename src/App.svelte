@@ -1,5 +1,8 @@
-<script lang="ts">
+<script lang="ts" context="module">
     import { Compary } from '$lib/index';
+</script>
+
+<script lang="ts">
     let value = 50;
     let img = {
         after: 'img/color.jpg',
