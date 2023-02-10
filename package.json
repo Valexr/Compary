@@ -9,12 +9,7 @@
     "type": "module",
     "scripts": {
         "build": "node esbuild",
-        "dev": "node esbuild --dev",
-        "start": "npx derver --production --port=5000 public",
-        "predeploy": "node esbuild",
-        "deploy": "gh-pages -d public",
-        "prepublishOnly": "node esbuild",
-        "prod": "node esbuild"
+        "dev": "node esbuild --dev"
     },
     "keywords": [
         "svelte",
@@ -31,14 +26,13 @@
     },
     "homepage": "https://valexr.github.io/Compary/",
     "devDependencies": {
-        "derver": "^0.5.3",
-        "esbuild": "^0.14.45",
-        "esbuild-svelte": "^0.7.1",
-        "esbuild-svelte-paths": "^0.1.4",
-        "gh-pages": "^4.0.0",
-        "sass": "^1.52.3",
-        "svelte": "^3.48.0",
-        "svelte-preprocess": "^4.10.7",
-        "typescript": "^4.7.4"
+        "@tsconfig/svelte": "^3.0.0",
+        "esbuild": "^0.17.7",
+        "esbuild-svelte": "^0.7.3",
+        "svelte": "^3.55.1",
+        "svelte-preprocess": "^5.0.1",
+        "svelte2tsx": "^0.6.1",
+        "tslib": "^2.5.0",
+        "typescript": "^4.9.5"
     }
 }

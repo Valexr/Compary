@@ -1,97 +1,55 @@
-import { build } from "esbuild";
-import { derver } from "derver";
-import sveltePlugin from "esbuild-svelte";
-import sveltePreprocess from "svelte-preprocess";
+import { build, context } from 'esbuild';
+import svelte from 'esbuild-svelte';
+import preprocess from 'svelte-preprocess';
+import rm from './env/rm.js';
+import log from './env/log.js';
 
 const DEV = process.argv.includes('--dev');
 
-// Development server configuration. To configure production server
-// see `start` script in `package.json` file.
+const serveOptions = {
+    servedir: 'public'
+};
 
-const HOST = 'localhost';
-const PORT = 5050;
+const svelteOptions = {
+    compileOptions: {
+        dev: DEV,
+        css: false,
+        immutable: true
+    },
+    preprocess: [
+        preprocess({
+            sourceMap: DEV,
+            typescript: true,
+        }),
+    ]
+};
 
-async function build_client() {
-    return await build({
-        entryPoints: ['src/main.js'],
-        bundle: true,
-        outfile: 'public/build/bundle.js',
-        mainFields: ['svelte', 'module', 'main'],
-        minify: !DEV,
-        incremental: DEV,
-        sourcemap: DEV && 'inline',
-        external: ['../img/*'],
-        loader: {
-            '.jpg': 'file'
-        },
-        plugins: [
-            sveltePlugin({
+const buildOptions = {
+    bundle: true,
+    minify: !DEV,
+    sourcemap: DEV,
+    entryPoints: ['src/app.ts'],
+    outdir: 'public/build',
+    format: 'esm',
+    loader: { '.svg': 'text' },
+    plugins: [svelte(svelteOptions), log],
+    inject: DEV ? ['./env/lr.js'] : [],
+    legalComments: "none",
+};
 
-                compilerOptions: {
-                    // Svelte compile options
-                    dev: DEV,
-                    css: false  //use `css:true` to inline CSS in `bundle.js`
-                },
+await rm('public/build');
 
-                preprocess: [
-                    sveltePreprocess()
-                ]
+if (DEV) {
+    const ctx = await context(buildOptions);
 
-            })
-        ]
-    });
+    await ctx.watch();
+    const { host, port } = await ctx.serve(serveOptions);
+
+    process.on('SIGTERM', ctx.dispose);
+    process.on("exit", ctx.dispose);
+
+    const time = new Date().toLocaleTimeString();
+    console.dir(`${time} ${process.env.npm_package_name} started on http://${host}:${port}`);
+} else {
+    await build(buildOptions);
 }
-
-build_client().then(bundle => {
-    DEV && derver({
-        dir: 'public',
-        host: HOST,
-        port: PORT,
-        watch: ['public', 'src'],
-        onwatch: async (l, i, file) => {
-            console.log(file)
-            if (i == 'src') {
-                l.prevent();
-                bundle.rebuild().catch(err => l.error(err.message, 'Svelte compile error'));
-            }
-        }
-    })
-});
-
-!DEV && (async () => {
-
-    await build({
-        entryPoints: ['src/compary/index.js'],
-        outfile: 'dist/compary.cjs',
-        format: 'cjs',
-        bundle: true,
-        minify: true,
-        sourcemap: false,
-        external: ['svelte', 'svelte/*'],
-        plugins: [sveltePlugin({ compilerOptions: { css: true } })]
-    });
-
-    await build({
-        entryPoints: ['src/compary/index.js'],
-        outfile: 'dist/compary.mjs',
-        format: "esm",
-        bundle: true,
-        minify: true,
-        sourcemap: false,
-        external: ['svelte', 'svelte/*'],
-        plugins: [sveltePlugin({ compilerOptions: { css: true, accessors: true } })],
-    });
-
-    await build({
-        entryPoints: ['src/compary/index.js'],
-        outfile: 'dist/compary.js',
-        platform: 'browser',
-        format: "iife",
-        bundle: true,
-        minify: true,
-        sourcemap: false,
-        globalName: "Compary",
-        plugins: [sveltePlugin({ compilerOptions: { css: true } })],
-    });
-
-})()
